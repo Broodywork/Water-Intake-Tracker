@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Compare Water Intake Between Two Dates</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label>Date 1:</label>
+        <input type="date" name="date1" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Date 2:</label>
+        <input type="date" name="date2" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Compare</button>
+</form>
+
+{% if result is not None %}
+    <div class="alert alert-info mt-3">
+        Difference: <strong>{{ result }} ml</strong>
+    </div>
+{% endif %}
+{% endblock %}

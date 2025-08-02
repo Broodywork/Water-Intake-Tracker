@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Water Intake Entries</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Quantity (ml)</th>
+            <th>Added At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for intake in page_obj %}
+        <tr>
+            <td>{{ intake.date }}</td>
+            <td>{{ intake.quantity_ml }}</td>
+            <td>{{ intake.added_at|date:"M d, Y H:i" }}</td>
+            <td>
+                <a href="{% url 'edit_intake' intake.id %}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{% url 'delete_intake' intake.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No entries yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+    <span class="page-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

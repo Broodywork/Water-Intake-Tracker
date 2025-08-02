@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center">
+    <h1> Welcome to the Daily Water Tracker</h1>
+    <p class="lead">Track your daily water intake, stay hydrated, and compare your progress!</p>
+
+    {% if user.is_authenticated %}
+        <p>You are logged in as <strong>{{ user.username }}</strong>.</p>
+        <a href="{% url 'add_intake' %}" class="btn btn-primary m-2">Add Today's Intake</a>
+        <a href="{% url 'intake_list' %}" class="btn btn-success m-2">View My Intakes</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn btn-primary m-2">Login</a>
+        <a href="{% url 'signup' %}" class="btn btn-success m-2">Sign Up</a>
+    {% endif %}
+</div>
+{% endblock %}
